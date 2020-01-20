@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxGraphModule
+    NgxGraphModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

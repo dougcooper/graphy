@@ -22,7 +22,8 @@
     "@swimlane/ngx-graph": "^6.2.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "@ionic/angular": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.22",
@@ -43,6 +44,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "@ionic/angular-toolkit": "latest"
   }
 }

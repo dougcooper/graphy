@@ -7,7 +7,20 @@
         [nodes]="nodes" 
         [zoomToFit$]="zoomToFit$" 
         [center$]="center$" 
-        [layoutSettings]="layoutSettings" [draggingEnabled]="false">
+        [layoutSettings]="layoutSettings" 
+        [draggingEnabled]="false">
+          <ng-template #nodeTemplate let-node>
+            <svg:g class="node">
+              <svg:rect
+                [attr.width]="node.dimension.width"
+                [attr.height]="node.dimension.height"
+                [attr.fill]="node.data.color"
+              />
+              <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">
+                {{node.label}}
+              </svg:text>
+            </svg:g>
+          </ng-template>
         </ngx-graph>
       </ion-card>
     </ion-col>

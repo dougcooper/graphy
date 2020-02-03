@@ -41,7 +41,7 @@ export class GraphyFormComponent implements OnInit {
   }
 
   add(){
-    this.treeService.addData(this.profileForm.get('csvDataModel').value.split(',').map(val=>parseInt(val)));
+    this.treeService.addData(this.profileForm.get('csvDataModel').value.split(',').map(val=>parseFloat(val)));
     this.profileForm.setValue({csvDataModel: ''});
   }
 

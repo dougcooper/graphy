@@ -1,0 +1,21 @@
+<ion-grid style="height: 100%">
+  <ion-row style="height: 90%">
+    <ion-col >
+      <ion-card style="height: 100%;margin: 0;">
+        <ngx-graph class="chart-container" 
+        [links]="edges" 
+        [nodes]="nodes" 
+        [zoomToFit$]="zoomToFit$" 
+        [center$]="center$" 
+        [layoutSettings]="layoutSettings" [draggingEnabled]="false">
+        </ngx-graph>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="zoomToFit()" [disabled]="treeService.data.length==0">Re-Center</ion-button>
+      <ion-button (click)="clearPlot()" [disabled]="treeService.data.length==0">Clear</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { BinarySortedTree } from './binary-sorted-tree';
 import { Node } from '../tree-model/tree'
+import { NgModelGroup } from '@angular/forms';
 
-const node_data = [2,1,3,4];
-const edge_data = [[2,1],[2,3],[3,4]];
+const node_data = [2,1,3,2.5,3.5];
+const edge_data = [[2,1],[2,3],[3,2.5],[3,3.5]];
 
 function check(node:Node, val:number,compare:any):boolean
 {
@@ -40,24 +41,34 @@ function checkBST(root:Node):boolean
   return rv;
 }
 
-fdescribe('BinarySortedTree', () => {
-  let module: BinarySortedTree;
+class TestBinarySortedTree extends BinarySortedTree{
+
+}
+
+describe('BinarySortedTree', () => {
+  let module: TestBinarySortedTree;
 
   beforeEach(() => {
-    module = new BinarySortedTree();
+    module = new TestBinarySortedTree();
   });
 
   it('should be created', () => {
     expect(module).toBeTruthy();
   });
 
+  it('should not add duplicate nodes', () => {
+    [1,2,3,4,1].forEach(val=>{
+      module.insert(val)
+    });
+    expect(module.nodes.length).toEqual(4);
+  });
+
   it('should have correct number of nodes', () => {
     node_data.forEach(val => module.insert(val));
     let nodes = module.getNodes();
     expect(nodes.length).toEqual(4);
-    
-
   });
+
   it('should have correct number of edges', () => {
     node_data.forEach(val => module.insert(val));
     let edges = module.getEdges();
@@ -73,13 +84,14 @@ fdescribe('BinarySortedTree', () => {
     expect(rv).toBeTruthy();
   });
 
-  it('edge data is valid', () => {
+  fit('edge data is valid', () => {
     
     node_data.forEach(val => module.insert(val));
     let rv = true;
     edge_data.forEach(value=>{
-      rv = module.edges.find(edge=>{return edge.from.data == value[0] && 
-                                    edge.to.data == value[1];}) != null ? true : false;
+      rv = module.edges.find(edge=>{
+        return edge.from.data == value[0] && edge.to.data == value[1];
+      }) != null ? true : false;
     })
     expect(rv).toBeTruthy();
   });

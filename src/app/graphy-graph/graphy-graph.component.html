@@ -1,23 +1,28 @@
 <ion-grid style="height: 100%">
   <ion-row style="height: 90%">
-    <ion-col >
+    <ion-col style="height: 100%">
       <ion-card style="height: 100%;margin: 0;">
         <ngx-graph class="chart-container" 
         [links]="edges" 
         [nodes]="nodes" 
         [zoomToFit$]="zoomToFit$" 
         [center$]="center$" 
+        [autoZoom]="autoZoom"
+        [autoCenter]="autoCenter"
+        layout="dagre"
         [layoutSettings]="layoutSettings" 
-        [draggingEnabled]="false">
+        [draggingEnabled]="true">
           <ng-template #nodeTemplate let-node>
             <svg:g class="node">
-              <svg:rect
-                [attr.width]="node.dimension.width"
-                [attr.height]="node.dimension.height"
-                [attr.fill]="node.data.color"
+              <svg:circle
+                [attr.cx]="node.dimension.width/2"
+                [attr.cy]="node.dimension.width/2"
+                [attr.r]="node.dimension.width/2"
+                style="fill:white;stroke:black;"
               />
-              <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">
-                {{node.label}}
+              <svg:text alignment-baseline="middle" text-anchor="middle" [attr.x]="node.dimension.width/2"
+              [attr.y]="node.dimension.width/2">
+                {{node.label.data}} ({{node.label.count}})
               </svg:text>
             </svg:g>
           </ng-template>
@@ -27,7 +32,8 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-button (click)="zoomToFit()" [disabled]="treeService.data.length==0">Re-Center</ion-button>
+      <ion-button (click)="zoomToFit()" [disabled]="treeService.data.length==0">Center</ion-button>
+      <ion-button (click)="reset()" [disabled]="treeService.data.length==0">Reset</ion-button>
       <ion-button (click)="clearPlot()" [disabled]="treeService.data.length==0">Clear</ion-button>
     </ion-col>
   </ion-row>

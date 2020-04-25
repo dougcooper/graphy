@@ -1,7 +1,12 @@
 export class Node {
   left: Node = null;
   right: Node = null;
-  constructor(public data:number,public parent:Node){}
+  count: number = 0;
+  static count: number = 0;
+  id: number = null;
+  constructor(public data:number,public parent:Node){
+    this.id = Node.count++;
+  }
 }
 
 export class Edge {

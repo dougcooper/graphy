@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TreeService } from '../tree-service/tree.service';
 
-type GraphNode = {id:string,label:string};
+type GraphNode = {id:string,label:{data:string,count:string}};
 type GraphEdge = {id:string,source:string,target:string,label:string};
 type GraphNodeArray = Array<GraphNode>;
 type GraphEdgeArray = Array<GraphEdge>;
@@ -27,25 +27,28 @@ export class GraphyGraphComponent implements OnInit{
 
   center$: Subject<boolean> = new Subject();
   zoomToFit$: Subject<boolean> = new Subject();
+  autoZoom: boolean = true;
+  autoCenter: boolean = true;
 
   constructor(private treeService:TreeService) { 
-    //TODO: handle duplicates
     treeService.nodes$.subscribe(nodes=>{
       this._nodes = nodes.map(node=>{
         let n = {
-          id: node.data.toString(),
-          label: node.data.toString()
+          id: node.id.toString(),
+          label: {
+            data: node.data.toString(), 
+            count: node.count.toString()
+          }
         };
         return n;
       })
     })
-    //TODO: handle duplicates
     treeService.edges$.subscribe(edges=>{
       this._edges = edges.map(edge=>{
         let e = {
-          id: "from"+edge.from.data.toString() +"to"+edge.to.data.toString(),
-          source: edge.from.data.toString(),
-          target: edge.to.data.toString(),
+          id: "from"+edge.from.id.toString() +"to"+edge.to.id.toString(),
+          source: edge.from.id.toString(),
+          target: edge.to.id.toString(),
           label: ""
         }
         return e;
@@ -58,7 +61,7 @@ export class GraphyGraphComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.zoomToFit();
+    // this.zoomToFit();
   }
 
   zoomToFit(){
@@ -68,6 +71,10 @@ export class GraphyGraphComponent implements OnInit{
 
   clearPlot(){
     this.treeService.clear();
+  }
+
+  reset(){
+    this.treeService.rebuild();
   }
 
 }

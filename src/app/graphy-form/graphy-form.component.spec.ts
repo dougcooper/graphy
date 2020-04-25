@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { GraphyFormComponent } from './graphy-form.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TreeService } from '../tree-service/tree.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('GraphyFormComponent', () => {
   let component: GraphyFormComponent;
@@ -11,6 +11,7 @@ describe('GraphyFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ GraphyFormComponent ],
+      imports: [ReactiveFormsModule],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ],

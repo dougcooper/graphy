@@ -5,17 +5,17 @@
     </ion-card-header>
   
     <ion-card-content>
-        <form [formGroup]="profileForm" (ngSubmit)="add()" #myform="ngForm">
+        <form [formGroup]="profileForm" (ngSubmit)="add()">
           <ion-item>
-            <ion-textarea
+            <ion-input
               autogrow
               autofocus
-              placeholder="enter comma separeted data"
+              ngDefaultControl
+              placeholder="1,2,3..."
               formControlName="csvDataModel"
-            ></ion-textarea>
+            ></ion-input>
           </ion-item>
-          <p *ngIf="profileForm.get('csvDataModel').hasError('notAnInteger')">Not an integer</p>
-          
+          <p *ngIf="profileForm.get('csvDataModel').hasError('not_a_number')">Not an number</p>
           <ion-button type="submit" [disabled]="!profileForm.valid">Add</ion-button>
         </form>
     </ion-card-content>

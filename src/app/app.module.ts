@@ -8,9 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { GraphyFormComponent } from './graphy-form/graphy-form.component';
 import { GraphyGraphComponent } from './graphy-graph/graphy-graph.component';
-import { BinarySortedTree } from './models/binary-sorted-tree-model/binary-sorted-tree';
 import { TreeService } from './tree-service/tree.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,7 +24,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     NgxGraphModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(),
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    // MenuController
   ],
   providers: [TreeService],
   bootstrap: [AppComponent]

@@ -7,17 +7,17 @@ import { TreeService } from '../tree-service/tree.service';
 const node_data = [2,1,3,4];
 const edges = [
     {
-      id: '2,1',
+      id: 'from2to1',
       source: '2',
       target: '1',
       label: '2,1'
     }, {
-      id: '2,3',
+      id: 'from2to3',
       source: '2',
       target: '3',
       label: '2,3'
     }, {
-      id: '3,4',
+      id: 'from3to4',
       source: '3',
       target: '4',
       label: '3,4'

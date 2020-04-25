@@ -15,53 +15,87 @@ export enum TreeType {BST};
 
 export class TreeService{
 
-  //model
-  tree: Tree = null;
-
-  //global user provided data for persistent storage
-  data: Array<number> = [];
-
   // observables
   nodes$ = new Subject<Array<Node>>();
   edges$ = new Subject<Array<Edge>>();
 
+  //model
+  private _tree: Tree = null;
+
+  //local data store that captures all data entered
+  private _data = new Array<number>();
+  get data(): Array<number>{return this._data;}
+
   constructor() { 
     //default tree type
-    this.tree = this.factory(TreeType.BST);
+    this._tree = this._factory(TreeType.BST);
   }
 
   /**
    * Creates a new tree with the requested type and updates the tree 
    * with the previously added data.
    * 
-   * @param type
+   * @param treeType The type of tree to use for sorting.
    */
-  public setType(type:TreeType){
-    this.tree = this.factory(type);
-    this.data.forEach(val => this.tree.insert(val));
-    this.edges$.next(this.tree.getEdges());
-    this.nodes$.next(this.tree.getNodes());
+  public setType(treeType:TreeType){
+    this._tree = this._factory(treeType);
+    this._buildTree();
+    this.edges$.next(this._tree.getEdges());
+    this.nodes$.next(this._tree.getNodes());
   }
 
+  /**
+   * Adds data to the existing tree for sorting.
+   * 
+   * @param data An array of numbers to add to the tree for sorting.
+   */
   public addData(data: number[]){
-    
-    data.forEach(val => {
-      //TODO: handle duplicates
-      this.tree.insert(val);
-      this.data.push(val);
-    });
-    this.edges$.next(this.tree.getEdges());
-    this.nodes$.next(this.tree.getNodes());
+    this._updateLocalStore(data);
+    this.rebuild();
   }
 
+  /**
+   *  rebuilds the graph and notifies observers
+   */
+  public rebuild(){
+    this._clearModel();
+    this._buildTree();
+    this._notifyObservers();
+  }
+
+  /**
+   * Clears the internal data
+   */
   public clear(){
-    this.tree.clear();
-    this.data = [];
+    this._clearModel();
+    this._clearLocalData();
+    this._notifyObservers();
+  }
+
+  public _clearLocalData(){
+    this._data = [];
+  }
+
+  private _clearModel(){
+    this._tree.clear();
     this.nodes$.next([]);
     this.edges$.next([]);
   }
 
-  private factory(type:TreeType): Tree{
+  protected _notifyObservers(){
+    this.edges$.next(this._tree.getEdges());
+    this.nodes$.next(this._tree.getNodes());
+  }
+
+  protected _buildTree(){
+    this._data.forEach(val => {this._tree.insert(val);});
+  }
+
+  protected _updateLocalStore(data:number[]){
+    this._data = this._data.concat(data);
+  }
+
+  private _factory(type:TreeType): Tree{
     let t = null;
     switch(type){
       case TreeType.BST:

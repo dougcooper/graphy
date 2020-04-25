@@ -1,6 +1,6 @@
 <ion-app>
-  <ion-split-pane when="sm">
-    <ion-menu>
+  <!-- <ion-split-pane when="sm"> -->
+    <ion-menu side="start" type = "push" content-id="main-content">
       <ion-header>
         <ion-toolbar color="primary">
           <ion-title>Graphy</ion-title>
@@ -12,27 +12,25 @@
       </ion-content>
     </ion-menu>
 
-    <div class="ion-page" main>
+    <!-- <ion-router-outlet id="main"> -->
+    <div class="ion-page" id="main-content">
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-menu-toggle>
-              <ion-button>
-                <ion-icon slot="icon-only" name="menu"></ion-icon>
-              </ion-button>
-            </ion-menu-toggle>
+            <ion-menu-button></ion-menu-button>
           </ion-buttons>
           <ion-title>Binary Sorted Trees</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="">
+      <ion-content class="ion-padding">
         <app-graphy-graph></app-graphy-graph>
       </ion-content>
-      <ion-footer>
+      <!-- <ion-footer>
         <ion-toolbar>
-          <ion-title>Footer</ion-title>
+          <ion-title>Buy me a coffee</ion-title>
         </ion-toolbar>
-      </ion-footer>
+      </ion-footer> -->
     </div>
-  </ion-split-pane>
+  <!-- </ion-router-outlet> -->
+  <!-- </ion-split-pane> -->
 </ion-app>

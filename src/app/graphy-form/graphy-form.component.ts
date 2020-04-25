@@ -1,8 +1,9 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { TreeService, TreeType } from '../tree-service/tree.service';
 import { FormGroup, FormControl, ValidatorFn, AbstractControl, Validators } from '@angular/forms';
+import { MenuController } from '@ionic/angular';
 
-function isAnInteger(): ValidatorFn {
+function is_a_number(): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} | null => {
     let tmp = control.value as string;    
     let data = tmp.split(',');
@@ -17,7 +18,7 @@ function isAnInteger(): ValidatorFn {
       if(isNaN(Number(element)))
         rv = true;
     });
-    return rv ? {notAnInteger: {value: control.value}} : null;
+    return rv ? {not_a_number: {value: control.value}} : null;
   };
 }
 
@@ -28,12 +29,14 @@ function isAnInteger(): ValidatorFn {
 })
 
 export class GraphyFormComponent implements OnInit {
+  
   profileForm = new FormGroup({
     'csvDataModel': new FormControl('',[
       Validators.required,
-      isAnInteger()])
+      is_a_number()])
   })
-  constructor(private treeService: TreeService) { 
+
+  constructor(private treeService: TreeService,public menuCtrl: MenuController) { 
     treeService.setType(TreeType.BST);
   }
 
@@ -41,8 +44,13 @@ export class GraphyFormComponent implements OnInit {
   }
 
   add(){
-    this.treeService.addData(this.profileForm.get('csvDataModel').value.split(',').map(val=>parseFloat(val)));
+    this.treeService.addData(
+      this.profileForm.get('csvDataModel').value.split(',').map(
+        val=>parseFloat(val)
+      )
+    );
     this.profileForm.setValue({csvDataModel: ''});
+    this.menuCtrl.close();
   }
 
   clear(){

@@ -66,13 +66,13 @@ describe('BinarySortedTree', () => {
   it('should have correct number of nodes', () => {
     node_data.forEach(val => module.insert(val));
     let nodes = module.getNodes();
-    expect(nodes.length).toEqual(4);
+    expect(nodes.length).toEqual(node_data.length);
   });
 
   it('should have correct number of edges', () => {
     node_data.forEach(val => module.insert(val));
     let edges = module.getEdges();
-    expect(edges.length).toEqual(3);
+    expect(edges.length).toEqual(node_data.length-1);
   });
 
   it('node data is valid', () => {
@@ -84,7 +84,7 @@ describe('BinarySortedTree', () => {
     expect(rv).toBeTruthy();
   });
 
-  fit('edge data is valid', () => {
+  it('edge data is valid', () => {
     
     node_data.forEach(val => module.insert(val));
     let rv = true;

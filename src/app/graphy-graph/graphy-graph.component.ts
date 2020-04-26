@@ -2,10 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TreeService } from '../tree-service/tree.service';
 
-type GraphNode = {id:string,label:{data:string,count:string}};
-type GraphEdge = {id:string,source:string,target:string,label:string};
-type GraphNodeArray = Array<GraphNode>;
-type GraphEdgeArray = Array<GraphEdge>;
+// export type GraphNode = {id:string,label:{data:string,count:string}};
+// export type GraphEdge = {id:string,source:string,target:string,label:string};
+// export type GraphNodeArray = Array<GraphNode>;
+// export type GraphEdgeArray = Array<GraphEdge>;
+
+export class GraphNode {id:string;label:{data:string,count:string}};
+export class GraphNodeArray extends Array<GraphNode>{};
+export class GraphEdge {id:string;source:string;target:string;label:string;};
+export class GraphEdgeArray extends Array<GraphEdge>{};
 
 @Component({
   selector: 'app-graphy-graph',
@@ -30,7 +35,7 @@ export class GraphyGraphComponent implements OnInit{
   autoZoom: boolean = true;
   autoCenter: boolean = true;
 
-  constructor(private treeService:TreeService) { 
+  constructor(public treeService:TreeService) { 
     treeService.nodes$.subscribe(nodes=>{
       this._nodes = nodes.map(node=>{
         let n = {

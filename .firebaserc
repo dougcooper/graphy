@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "graphy-69803": {
+      "hosting": {
+        "graphy": [
+          "graphy-69803"
+        ]
+      }
+    }
+  }
+}
